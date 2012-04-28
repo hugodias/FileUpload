@@ -11,6 +11,7 @@ You can find the documentation [here][fileupload]
 
 
 ## Quick start
+- Download this plugin and move to `app/Plugins/FileUpload`
 
 - Create a table named `uploads` in your database with the following structure:
 
