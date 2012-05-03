@@ -27,39 +27,6 @@
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <?php echo $this->Html->link('CakeTrap',"/",array('class' => 'brand')) ?>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <?php if( AuthComponent::user('id') ) { ?>
-              <li class="<?php echo $this->params->controller == 'users' && $this->action == 'home' ? 'active' : '';  ?>">
-                <?php echo $this->Html->link('Home','/users/home') ?>
-              </li>
-              <?php } ?>
-              <li class="<?php echo $this->action == 'register' ? 'active' : ''; ?>">
-                <?php echo $this->Html->link('Register','/users/register') ?>
-              </li>
-
-              
-            </ul>
-            <ul class="nav pull-right">
-              <?php if( AuthComponent::user('id') ) { ?>
-                <li><?php echo $this->Html->link('Logout','/users/logout') ?></li>
-              <?php } ?>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    
 <div class="container" role="main" id="main">
   <?php echo $this->Session->flash('auth');?>
 
