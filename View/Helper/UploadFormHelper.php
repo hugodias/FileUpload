@@ -1,13 +1,23 @@
 <?php  
 App::uses('AppHelper', 'View/Helper');
 
+/**
+* Helper to load the upload form
+*
+* NOTE: If you want to use it out of this plugin you NEED to include the CSS files in your Application.
+* The files are loaded in `app/Plugins/FileUpload/View/Layouts/default.ctp` starting at line 16
+*
+*/
 class UploadFormHelper extends AppHelper {
 
 	/**
 	*	Load the form
-	*	@param String url for the data handler
+	* 	@access public
+	*	@param String $url url for the data handler
+	*   @param Boolean $loadExternal load external JS files needed
+	* 	@return void
 	*/
-	public function load( $url = '/file_upload/handler' )
+	public function load( $url = '/file_upload/handler', $loadExternal = true )
 	{
 		// Remove the first `/` if it exists.
 	    if( $url[0] == '/' )
@@ -16,10 +26,21 @@ class UploadFormHelper extends AppHelper {
 	    }
 
 		$this->_loadScripts();
+
 		$this->_loadTemplate( $url );
+
+		if( $loadExternal )
+		{
+			$this->_loadExternalJsFiles();	
+		}
+		
 	}
 
-
+	/**
+	*	Load the scripts needed.
+	* 	@access private
+	* 	@return void
+	*/
 	private function _loadScripts()
 	{
 		echo '<script id="template-upload" type="text/x-tmpl">
@@ -83,7 +104,11 @@ class UploadFormHelper extends AppHelper {
 
 	}
 
-
+	/**
+	*	Load the entire form structure.
+	* 	@access private
+	* 	@return void
+	*/
 	private function _loadTemplate( $url = null )
 	{
 		echo '<div class="container">
@@ -146,6 +171,28 @@ class UploadFormHelper extends AppHelper {
 	    </div>
 	</div>
 	';		
+	}
+
+	/**
+	*	Load external JS files needed.
+	* 	@access private
+	* 	@return void
+	*/
+	private function _loadExternalJsFiles()
+	{
+		echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/vendor/jquery.ui.widget.js"></script>
+		<script src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
+		<script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
+		<script src="http://blueimp.github.com/JavaScript-Canvas-to-Blob/canvas-to-blob.min.js"></script>
+		<script src="http://blueimp.github.com/cdn/js/bootstrap.min.js"></script>
+		<script src="http://blueimp.github.com/Bootstrap-Image-Gallery/js/bootstrap-image-gallery.min.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/jquery.iframe-transport.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/jquery.fileupload-fp.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/jquery.fileupload-ui.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/locale.js"></script>
+		<script type="text/javascript" src="'.Router::url('/', true).'file_upload/js/main.js"></script>';	
 	}
 
 }

@@ -15,7 +15,7 @@
 
   <link rel="stylesheet" href="<?php echo Router::url('/', true) ?>file_upload/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo Router::url('/', true) ?>file_upload/css/style.css">
-  <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
+
 
   <link rel="stylesheet" href="<?php echo Router::url('/', true) ?>file_upload/css/file_upload_style.css">
   <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
@@ -34,20 +34,6 @@
 	<?php echo $this->fetch('content'); ?>
 </div> <!-- /container -->
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
-<script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
-<script src="http://blueimp.github.com/JavaScript-Canvas-to-Blob/canvas-to-blob.min.js"></script>
-<script src="http://blueimp.github.com/cdn/js/bootstrap.min.js"></script>
-<script src="http://blueimp.github.com/Bootstrap-Image-Gallery/js/bootstrap-image-gallery.min.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/jquery.iframe-transport.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/jquery.fileupload.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/jquery.fileupload-fp.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/jquery.fileupload-ui.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/locale.js"></script>
-<script type="text/javascript" src="<?php echo Router::url('/', true) ?>file_upload/js/main.js"></script>
 
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
