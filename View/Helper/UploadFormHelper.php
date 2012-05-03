@@ -112,7 +112,7 @@ class UploadFormHelper extends AppHelper {
 	private function _loadTemplate( $url = null )
 	{
 		echo '<div class="container">
-		<form id="fileupload" action="'.$this->request->webroot.$url.'" method="POST" enctype="multipart/form-data">
+		<form id="fileupload" action="'.Router::url('/', true).$url.'" method="POST" enctype="multipart/form-data">
 	        <div class="row fileupload-buttonbar">
 	            <div class="span7">
 	                <span class="btn btn-success fileinput-button">
