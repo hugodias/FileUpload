@@ -25,7 +25,7 @@ class UploadComponent extends Component
     */
     function __construct( ComponentCollection $collection, $options = null ) {
 
-        $this->UploadModel = ClassRegistry::init('Upload');
+        $this->UploadModel = ClassRegistry::init('FileUpload.Upload');
 
         $this->options = array(
             'script_url' => Router::url('/', true).'file_upload/handler',
