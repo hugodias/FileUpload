@@ -9,9 +9,12 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-
+App::uses('Component', 'Controller');
 class UploadComponent extends Component
-{
+{    
+	public $components = array('Session','Auth');
+	public $helpers = array('Session','Auth');
+	
     protected $options;
     
     /*
@@ -27,7 +30,7 @@ class UploadComponent extends Component
 
         $this->UploadModel = ClassRegistry::init('FileUpload.Upload');
 
-        $this->options = array(
+         $this->options = array(
             'script_url' => Router::url('/', true).'file_upload/handler',
             'upload_dir' => WWW_ROOT.'files/',
             'upload_url' => $this->getFullUrl().'/files/',
@@ -74,9 +77,9 @@ class UploadComponent extends Component
                 $this->options['upload_dir'] = $dir;
             }
         }
-
+        
     }
-
+	
     public function getFullUrl() {
       	return
     		(isset($_SERVER['HTTPS']) ? 'https://' : 'http://').
@@ -227,23 +230,32 @@ class UploadComponent extends Component
             1
         );
     }
-    
+    protected function get_unique_filename($name,$type) {
+		$tmp_path = $this->options['upload_dir'].$name;
+        if(file_exists($tmp_path)) {
+            $name = $this->upcount_name($name);
+        }
+		return $name;
+	}
+	
+	 protected function get_file_name($name,$type) {
+        return $this->get_unique_filename(
+            $this->trim_file_name($name, $type),
+            $type
+        );
+    }
+	
     protected function trim_file_name($name, $type) {
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $file_name = trim(basename(stripslashes($name)), ".\x00..\x20");
+        $name = trim(basename(stripslashes($name)), ".\x00..\x20");
         // Add missing file extension for known image types:
-        if (strpos($file_name, '.') === false &&
+        if (strpos($name, '.') === false &&
             preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
-            $file_name .= '.'.$matches[1];
+            $name .= '.'.$matches[1];
         }
-        if ($this->options['discard_aborted_uploads']) {
-            while(is_file($this->options['upload_dir'].$file_name)) {
-                $file_name = $this->upcount_name($file_name);
-            }
-        }
-        return $file_name;
+        return $name;
     }
 
     protected function orient_image($file_path) {
@@ -277,7 +289,7 @@ class UploadComponent extends Component
     
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error) {
         $file = new stdClass();
-        $file->name = $this->trim_file_name($name, $type);
+        $file->name = $this->get_file_name($name, $type);
         $file->size = intval($size);
         $file->type = $type;
         $error = $this->has_error($uploaded_file, $file, $error);
@@ -292,7 +304,7 @@ class UploadComponent extends Component
                 // File information to save on database
                 $data = array(
                     'Upload' => array(
-                        'name' => $name,
+                        'name' => $file->name,
                         'size' => $size
                     )
                 );
